@@ -1,0 +1,17 @@
+version: '3.1'
+services:
+
+  fastfeet-db:
+    container_name: fastfeet-db
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: fastfeet
+    ports:
+      - 5432:5432
+    volumes:
+      - database-data:/var/lib/postgresql/data/
+
+
+volumes:
+  database-data:
