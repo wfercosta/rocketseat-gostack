@@ -2,18 +2,18 @@ import * as yup from 'yup';
 import jwt from 'jsonwebtoken';
 
 import User from '@models/User';
-import configuration from '@configurations/application';
+import { auth } from '@configurations/application';
 import { NotAuthorizedError } from '@infrastructure/errors';
 
 class TokenController {
   constructor() {
-    this.SCHEMA_CREATE = {
+    this.SCHEMA_GENERATE = {
       email: yup.string().required(),
       password: yup.string().required(),
     };
   }
 
-  async create(req, res) {
+  async generate(req, res) {
     const { email, password } = req.data;
     const user = await User.findOne({ where: { email } });
 
@@ -26,8 +26,8 @@ class TokenController {
 
     return res.json({
       ...model,
-      token: jwt.sign(model, configuration.auth.secret, {
-        expiresIn: configuration.auth.expiration,
+      token: jwt.sign(model, auth.secret, {
+        expiresIn: auth.expiration,
       }),
     });
   }

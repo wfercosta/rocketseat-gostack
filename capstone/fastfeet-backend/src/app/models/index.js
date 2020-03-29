@@ -1,3 +1,4 @@
 import User from './User';
+import Recipient from './Recipient';
 
-export { User };
+export { User, Recipient };
