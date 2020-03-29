@@ -17,7 +17,7 @@ class TokenController {
     const { email, password } = req.data;
     const user = await User.findOne({ where: { email } });
 
-    if (user && !(await user.isCurrentPassword(password))) {
+    if (!user || !(await user.isCurrentPassword(password))) {
       throw new NotAuthorizedError();
     }
 

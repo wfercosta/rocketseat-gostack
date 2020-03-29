@@ -4,18 +4,18 @@ class Recipient extends Model {
   static init(sequelize) {
     super.init(
       {
-        street: Sequelize.STRING(60),
+        name: Sequelize.STRING,
+        street: Sequelize.STRING,
         number: Sequelize.INTEGER,
-        complement: Sequelize.STRING(60),
-        state: Sequelize.STRING(40),
-        city: Sequelize.STRING(40),
-        zipcode: Sequelize.STRING(9),
+        complement: Sequelize.STRING,
+        state: Sequelize.STRING,
+        city: Sequelize.STRING,
+        zipcode: Sequelize.STRING,
       },
       {
         sequelize,
       }
     );
-
     return this;
   }
 }

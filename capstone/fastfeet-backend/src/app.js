@@ -1,10 +1,10 @@
 import express from 'express';
 import configuration from '@configurations/database';
 import Sequelize from 'sequelize';
-import { User } from '@models';
+import { User, Recipient } from '@models';
 import routes from './routes';
 
-const models = [User];
+const models = [User, Recipient];
 
 class App {
   constructor() {

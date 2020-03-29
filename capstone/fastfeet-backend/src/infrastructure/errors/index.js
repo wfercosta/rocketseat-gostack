@@ -1,4 +1,5 @@
 import NotAuthorizedError from './NotAuthorizedError';
 import ValidationError from './ValidationError';
+import NotFoundError from './NotFoundError';
 
-export { ValidationError, NotAuthorizedError };
+export { ValidationError, NotAuthorizedError, NotFoundError };

@@ -7,6 +7,10 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
+      name: {
+        type: Sequelize.STRING(60),
+        allowNull: false,
+      },
       street: {
         type: Sequelize.STRING(60),
         allowNull: false,
