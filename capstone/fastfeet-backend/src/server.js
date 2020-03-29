@@ -1,14 +1,11 @@
-import express from 'express';
+import 'module-alias/register';
 import dotenv from 'dotenv';
+
+import app from './app';
 
 dotenv.config();
 
 const port = process.env.PORT;
-const server = express();
-
-server.get('/', (req, res) => {
-  return res.send('OK');
-});
 
 // eslint-disable-next-line no-console
-server.listen(port, () => console.log(`\n⚡️Server started at port: ${port}`));
+app.listen(port, () => console.log(`\n⚡️Server started at port: ${port}`));

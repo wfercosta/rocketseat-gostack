@@ -3,10 +3,8 @@ module.exports = {
     es6: true,
     node: true,
   },
-  extends: [
-    'airbnb-base', 'prettier'
-  ],
-  plugins: ['prettier'],
+  extends: ['airbnb-base', 'prettier'],
+  plugins: ['prettier', 'eslint-plugin-import'],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
@@ -16,7 +14,19 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
-    "prettier/prettier": "error",
-    "no-unused-vars": ["error", {"argsIgnorePattern": "next"}]
+    'prettier/prettier': 'error',
+    'class-methods-use-this': 'off',
+    'no-unused-vars': ['error', { argsIgnorePattern: 'next' }],
+  },
+  settings: {
+    'import/resolver': {
+      alias: {
+        map: [
+          ['@controllers', './src/app/controllers'],
+          ['@models', './src/app/models'],
+          ['@configurations', './src/configuration'],
+        ],
+      },
+    },
   },
 };

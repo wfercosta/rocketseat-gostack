@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": false,
+    "baseUrl": "./",
+    "paths": {
+      "@controllers/*": ["src/app/controllers/*"],
+      "@models/*": ["src/app/models/*"],
+      "@configurations/*": ["src/configuration/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}
