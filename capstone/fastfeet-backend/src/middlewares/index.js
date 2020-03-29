@@ -1,14 +1,9 @@
 import * as Yup from 'yup';
-import { Router } from 'express';
 import jwt from 'jsonwebtoken';
 import { promisify } from 'util';
 
 import { ValidationError, NotAuthorizedError } from '@infrastructure/errors';
 import { auth } from '@configurations/application';
-import TokenController from '@controllers/TokenController';
-import RecipientController from '@controllers/RecipientController';
-
-const routes = new Router();
 
 const validate = ({ shape, path = 'query' }) => async (req, res, next) => {
   const schema = Yup.object().shape(shape);
@@ -39,30 +34,4 @@ const autenticated = async (req, res, next) => {
   }
 };
 
-routes.post(
-  '/token',
-  validate({ shape: TokenController.SCHEMA_GENERATE, path: 'body' }),
-  TokenController.generate
-);
-
-routes.use(autenticated);
-
-routes.post(
-  '/recipients',
-  validate({ shape: RecipientController.SCHEMA_STORE, path: 'body' }),
-  RecipientController.store
-);
-
-routes.get('/recipients', RecipientController.index);
-
-routes.get('/recipients/:id', RecipientController.show);
-
-routes.put(
-  '/recipients/:id',
-  validate({ shape: RecipientController.SCHEMA_STORE, path: 'body' }),
-  RecipientController.update
-);
-
-routes.delete('/recipients/:id', RecipientController.delete);
-
-export default routes;
+export { validate, autenticated };

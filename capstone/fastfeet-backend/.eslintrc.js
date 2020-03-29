@@ -27,6 +27,8 @@ module.exports = {
           ['@models', './src/app/models'],
           ['@configurations', './src/configuration'],
           ['@infrastructure', './src/infrastructure'],
+          ['@routes', './src/routes'],
+          ['@middlewares', './src/middlewares'],
         ],
       },
     },

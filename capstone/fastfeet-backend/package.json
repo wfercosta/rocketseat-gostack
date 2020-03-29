@@ -35,6 +35,8 @@
     "@controllers": "src/app/controllers",
     "@models": "src/app/models",
     "@configurations": "src/configuration",
-    "@infrastructure": "src/infrastructure"
+    "@infrastructure": "src/infrastructure",
+    "@routes": "src/routes",
+    "@middlewares": "src/middlewares"
   }
 }
