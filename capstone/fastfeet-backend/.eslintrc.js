@@ -16,6 +16,7 @@ module.exports = {
   rules: {
     'prettier/prettier': 'error',
     'class-methods-use-this': 'off',
+    'no-param-reassign': 'off',
     'no-unused-vars': ['error', { argsIgnorePattern: 'next' }],
   },
   settings: {
@@ -25,6 +26,7 @@ module.exports = {
           ['@controllers', './src/app/controllers'],
           ['@models', './src/app/models'],
           ['@configurations', './src/configuration'],
+          ['@infrastructure', './src/infrastructure'],
         ],
       },
     },

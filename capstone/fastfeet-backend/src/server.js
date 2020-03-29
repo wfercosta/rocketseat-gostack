@@ -1,4 +1,5 @@
 import 'module-alias/register';
+import 'express-async-errors';
 import dotenv from 'dotenv';
 
 import app from './app';

@@ -5,7 +5,8 @@
     "paths": {
       "@controllers/*": ["src/app/controllers/*"],
       "@models/*": ["src/app/models/*"],
-      "@configurations/*": ["src/configuration/*"]
+      "@configurations/*": ["src/configuration/*"],
+      "@infrastructure/*": ["src/infrastructure/*"]
     }
   },
   "exclude": ["node_modules", "dist"]
