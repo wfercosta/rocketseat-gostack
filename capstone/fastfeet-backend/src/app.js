@@ -4,6 +4,8 @@ import Sequelize from 'sequelize';
 import { User, Recipient } from '@models';
 import routes from '@routes';
 
+import { errorHandling } from '@middlewares';
+
 const models = [User, Recipient];
 
 class App {
@@ -29,22 +31,7 @@ class App {
   }
 
   applyErrorHandling() {
-    this.server.use((err, req, res, next) => {
-      if (err.status) {
-        return res.status(err.status).json({ error: err.message });
-      }
-
-      return next(err);
-    });
-
-    this.server.use((err, req, res, next) => {
-      if (res.headersSent) {
-        return next(err);
-      }
-      // eslint-disable-next-line no-console
-      console.error(err);
-      return res.status(500).json({ error: 'Internal Server Error.' });
-    });
+    this.server.use(errorHandling);
   }
 }
 

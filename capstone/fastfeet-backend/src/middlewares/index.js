@@ -5,6 +5,20 @@ import { promisify } from 'util';
 import { ValidationError, NotAuthorizedError } from '@infrastructure/errors';
 import { auth } from '@configurations/application';
 
+const errorHandling = (err, req, res, next) => {
+  if (res.headersSent) {
+    return next(err);
+  }
+
+  if (err.status) {
+    return res.status(err.status).json({ error: err.message });
+  }
+
+  // eslint-disable-next-line no-console
+  console.error(err);
+  return res.status(500).json({ error: 'Internal Server Error.' });
+};
+
 const validate = ({ shape, path = 'query' }) => async (req, res, next) => {
   const schema = Yup.object().shape(shape);
 
@@ -34,4 +48,4 @@ const autenticated = async (req, res, next) => {
   }
 };
 
-export { validate, autenticated };
+export { validate, autenticated, errorHandling };
