@@ -27,7 +27,7 @@ class RecipientController {
     const recipient = await Recipient.findByPk(id);
 
     if (!recipient) {
-      throw new NotFoundError();
+      throw new NotFoundError('Recipient Not Found');
     }
 
     return res.json(recipient);
@@ -44,7 +44,7 @@ class RecipientController {
     let recipient = await Recipient.findByPk(id);
 
     if (!recipient) {
-      throw new NotFoundError();
+      throw new NotFoundError('Recipient Not Found');
     }
 
     recipient = await recipient.update(req.data);
@@ -58,7 +58,7 @@ class RecipientController {
     const recipient = await Recipient.findByPk(id);
 
     if (!recipient) {
-      throw new NotFoundError();
+      throw new NotFoundError('Recipient Not Found');
     }
 
     recipient.destroy();
