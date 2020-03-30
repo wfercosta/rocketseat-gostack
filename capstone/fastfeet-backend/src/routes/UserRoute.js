@@ -17,7 +17,7 @@ routes.get('/:id', UserController.show);
 
 routes.put(
   '/:id',
-  validate({ shape: UserController.SCHEMA_STORE, path: 'body' }),
+  validate({ shape: UserController.SCHEMA_UPDATE, path: 'body' }),
   UserController.update
 );
 

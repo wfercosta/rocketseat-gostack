@@ -2,15 +2,14 @@ import { Router } from 'express';
 
 import { autenticated } from '@middlewares';
 
-import recipients from './routes-recipients';
-import users from './routes-users';
-import token from './routes-token';
+import RecipientRoute from './RecipientRoute';
+import UserRoute from './UserRoute';
+import TokenRoute from './TokenRoute';
 
 const routes = new Router();
 
-routes.use('/token', token);
-routes.use(autenticated);
-routes.use('/users', users);
-routes.use('/recipients', recipients);
+routes.use('/token', TokenRoute);
+routes.use('/users', autenticated, UserRoute);
+routes.use('/recipients', autenticated, RecipientRoute);
 
 export default routes;
