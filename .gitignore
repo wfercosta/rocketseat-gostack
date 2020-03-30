@@ -2,3 +2,6 @@ node_modules
 .vscode
 package-lock.json
 yarn-error.log
+**/tmp/uploads/**
+
+!**/tmp/uploads/README.md
