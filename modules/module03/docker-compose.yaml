@@ -17,6 +17,9 @@ services:
     image: mongo
     ports:
       - 27017:27017
+    volumes:
+      - nosql-data:/data/db
 
 volumes:
   database-data:
+  nosql-data:
