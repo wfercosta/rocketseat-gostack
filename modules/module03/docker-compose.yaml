@@ -20,6 +20,13 @@ services:
     volumes:
       - nosql-data:/data/db
 
+  gobarber-mail:
+    image: mailhog/mailhog:latest
+    restart: always
+    ports:
+      - 1025:1025
+      - 8025:8025
+
 volumes:
   database-data:
   nosql-data:
