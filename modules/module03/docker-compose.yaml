@@ -12,8 +12,8 @@ services:
     volumes:
       - database-data:/var/lib/postgresql/data/
 
-  gobarber-nosql:
-    container_name: gobarber-nosql
+  gobarber-nosql-mongo:
+    container_name: gobarber-nosql-mongo
     image: mongo
     ports:
       - 27017:27017
@@ -21,11 +21,17 @@ services:
       - nosql-data:/data/db
 
   gobarber-mail:
+    container_name: gobarber-mail
     image: mailhog/mailhog:latest
-    restart: always
     ports:
       - 1025:1025
       - 8025:8025
+
+  gobarber-nosql-redis:
+    container_name: gobarber-nosql-redis
+    image: redis:alpine
+    ports:
+      - 6379:6379
 
 volumes:
   database-data:
