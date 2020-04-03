@@ -1,7 +1,7 @@
 export default {
-  host: '127.0.0.1',
-  port: 1025,
-  secure: false,
+  host: process.env.MAIL_HOST,
+  port: process.env.MAIL_PORT,
+  secure: process.env.MAIL_SECURE,
   auth: {},
   default: {
     from: 'Equipe Gobarber <noreply@gobarber.com> ',
