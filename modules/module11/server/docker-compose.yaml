@@ -1,0 +1,18 @@
+version: '3.1'
+services:
+
+  gobarber-db:
+    container_name: modulotestes-db
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: modulotestes
+    ports:
+      - 5432:5432
+    volumes:
+      - database-data:/var/lib/postgresql/data/
+
+
+
+volumes:
+  database-data:
