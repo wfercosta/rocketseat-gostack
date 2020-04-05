@@ -15,10 +15,11 @@ class TokenController {
 
   async generate(req, res) {
     const { email, password } = req.data;
+
     const user = await User.findOne({ where: { email } });
 
     if (!user || !(await user.isCurrentPassword(password))) {
-      throw new NotAuthorizedError();
+      throw new NotAuthorizedError('Invalid email or password');
     }
 
     const { id, name } = user;

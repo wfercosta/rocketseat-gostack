@@ -9,6 +9,7 @@ module.exports = {
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE_NAME,
   storage: '__tests__/database.sqlite',
+  logging: !!process.env.DATABASE_LOGGING,
   define: {
     timestamps: true,
     underscored: true,

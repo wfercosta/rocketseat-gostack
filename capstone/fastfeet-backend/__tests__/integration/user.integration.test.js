@@ -3,14 +3,11 @@ import { server } from '@root/app';
 import { auth } from '@configurations/application';
 import jwt from 'jsonwebtoken';
 import factories from '../factories';
-import truncate from '../helpers';
 
 describe('Route -> User', () => {
   let session = {};
 
   beforeEach(async () => {
-    await truncate();
-
     const { id, name, email } = await factories.create('User');
     const model = { id, name, email };
 
@@ -22,19 +19,162 @@ describe('Route -> User', () => {
     };
   });
 
-  it('should return status "not authorized" when requested without a token', async () => {
-    const { status } = await request(server).get('/users');
-    expect(status).toBe(401);
+  describe('Delete', () => {
+    it('should return status "OK" and the user when it is successfully deleted', async () => {
+      const { id } = await factories.create('User');
+
+      const { status, body } = await request(server)
+        .delete(`/users/${id}`)
+        .set('Authorization', `bearer ${session.token}`);
+
+      expect(status).toBe(200);
+      expect(body.id).toBe(id);
+    });
+
+    it('should return status "OK" and the user when it is successfully deleted', async () => {
+      const { id } = await factories.create('User');
+
+      await request(server)
+        .delete(`/users/${id}`)
+        .set('Authorization', `bearer ${session.token}`);
+
+      const { status, body } = await request(server)
+        .delete(`/users/${id}`)
+        .set('Authorization', `bearer ${session.token}`);
+
+      expect(status).toBe(404);
+      expect(body).toHaveProperty('error');
+    });
   });
 
-  it('should return status "OK" and a list of all users', async () => {
-    await factories.createMany('User', 5);
+  describe('Update', () => {
+    it('should return status "not authorized" when requested without a token', async () => {
+      const { status } = await request(server).put('/users');
+      expect(status).toBe(401);
+    });
 
-    const { status, body } = await request(server)
-      .get('/users')
-      .set('Authorization', `bearer ${session.token}`);
+    it('should return status "bad request" and and error when trying to change the password and the mandatory field "modification" is not filled', async () => {
+      const user = await factories.create('User');
 
-    expect(status).toBe(200);
-    expect(body.length).toBeGreaterThanOrEqual(5);
+      const update = {
+        name: user.name,
+        email: user.email,
+        password: {
+          current: user.password,
+        },
+      };
+
+      const { status, body } = await request(server)
+        .put(`/users/${user.id}`)
+        .send(update)
+        .set('Authorization', `bearer ${session.token}`);
+
+      expect(status).toBe(400);
+      expect(body).toHaveProperty('error');
+    });
+
+    it('should return status "bad request" and and error when trying to change the password and the mandatory field "confirmation" is not filled', async () => {
+      const user = await factories.create('User');
+
+      const update = {
+        name: user.name,
+        email: user.email,
+        password: {
+          current: user.password,
+          modification: '@newEmail',
+        },
+      };
+
+      const { status, body } = await request(server)
+        .put(`/users/${user.id}`)
+        .send(update)
+        .set('Authorization', `bearer ${session.token}`);
+
+      expect(status).toBe(400);
+      expect(body).toHaveProperty('error');
+    });
+
+    it.skip('should return status "OK" and the user when it is successfully updated', async () => {
+      const user = await factories.create('User');
+
+      const update = {
+        name: user.name,
+        email: user.email,
+        password: {
+          current: user.password,
+          modification: '@newEmail',
+          confirmation: '@newEmail',
+        },
+      };
+
+      const { status, body } = request(server)
+        .put(`/users/${user.id}`)
+        .send(update)
+        .set('Authorization', `bearer ${session.token}`);
+
+      expect(status).toBe(200);
+      expect(body).toHaveProperty('id');
+    });
+  });
+
+  describe('Create', () => {
+    it('should return status "not authorized" when requested without a token', async () => {
+      const { status } = await request(server).post('/users');
+      expect(status).toBe(401);
+    });
+
+    it('should return status "created" and the user when it is successfully created', async () => {
+      const user = await factories.attrs('User');
+
+      const { status, body } = await request(server)
+        .post('/users')
+        .send(user)
+        .set('Authorization', `bearer ${session.token}`);
+
+      expect(status).toBe(201);
+      expect(body).toHaveProperty('id');
+    });
+
+    it('should return "bad request" and an error when the e-mail is duplicated', async () => {
+      const existent = await factories.create('User');
+      const user = await factories.attrs('User', {
+        email: existent.email,
+      });
+
+      const { status, body } = await request(server)
+        .post('/users')
+        .send(user)
+        .set('Authorization', `bearer ${session.token}`);
+
+      expect(status).toBe(400);
+      expect(body).toHaveProperty('error');
+    });
+
+    it('should return status "bad request" and and error when the mandatory fields is not filled', async () => {
+      const { status, body } = await request(server)
+        .post('/users')
+        .set('Authorization', `bearer ${session.token}`);
+
+      expect(status).toBe(400);
+      expect(body).toHaveProperty('error');
+    });
+  });
+
+  describe('Index', () => {
+    it('should return status "not authorized" when requested without a token', async () => {
+      const { status } = await request(server).get('/users');
+      expect(status).toBe(401);
+    });
+
+    it('should return status "OK" and a list of all users', async () => {
+      await factories.createMany('User', 5);
+
+      const { status, body } = await request(server)
+        .get('/users')
+        .set('Authorization', `bearer ${session.token}`);
+
+      expect(status).toBe(200);
+      expect(body.length).toBeGreaterThanOrEqual(5);
+    });
   });
 });
