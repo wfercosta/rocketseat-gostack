@@ -19,7 +19,39 @@ describe('Route -> User', () => {
     };
   });
 
+  describe('Show', () => {
+    it('should return status "not authorized" when requested without a token', async () => {
+      const { status } = await request(server).get('/users/1');
+      expect(status).toBe(401);
+    });
+
+    it('should return status "OK" and the user when it was successfully found', async () => {
+      const { id } = await factories.create('User');
+
+      const { status, body } = await request(server)
+        .delete(`/users/${id}`)
+        .set('Authorization', `bearer ${session.token}`);
+
+      expect(status).toBe(200);
+      expect(body.id).toBe(id);
+    });
+
+    it('should return status "not found" and an error when it was not found', async () => {
+      const { status, body } = await request(server)
+        .delete(`/users/99999`)
+        .set('Authorization', `bearer ${session.token}`);
+
+      expect(status).toBe(404);
+      expect(body).toHaveProperty('error');
+    });
+  });
+
   describe('Delete', () => {
+    it('should return status "not authorized" when requested without a token', async () => {
+      const { status } = await request(server).put('/users/1');
+      expect(status).toBe(401);
+    });
+
     it('should return status "OK" and the user when it is successfully deleted', async () => {
       const { id } = await factories.create('User');
 
