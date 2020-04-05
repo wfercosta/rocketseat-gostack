@@ -2,6 +2,7 @@ module.exports = {
   env: {
     es6: true,
     node: true,
+    jest: true,
   },
   extends: ['airbnb-base', 'prettier'],
   plugins: ['prettier', 'eslint-plugin-import'],
@@ -29,6 +30,7 @@ module.exports = {
           ['@infrastructure', './src/infrastructure'],
           ['@routes', './src/routes'],
           ['@middlewares', './src/middlewares'],
+          ['@root', './src/'],
         ],
       },
     },

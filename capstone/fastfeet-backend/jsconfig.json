@@ -9,6 +9,7 @@
       "@infrastructure/*": ["src/infrastructure/*"],
       "@routes/*": ["src/routes/*"],
       "@middlewares/*": ["src/middlewares/*"],
+      "@root/*": ["src/*"],
     }
   },
   "exclude": ["node_modules", "dist"]

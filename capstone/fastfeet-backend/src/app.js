@@ -1,4 +1,5 @@
 import express from 'express';
+import 'express-async-errors';
 import configuration from '@configurations/database';
 import Sequelize from 'sequelize';
 import { User, Recipient } from '@models';
@@ -11,15 +12,15 @@ const models = [User, Recipient];
 class App {
   constructor() {
     this.server = express();
+    this.applyDatabaseConfiguration();
     this.applyCommonMiddlewares();
     this.applyRoutes();
     this.applyErrorHandling();
-    this.applyDatabaseConfiguration();
   }
 
   applyDatabaseConfiguration() {
-    this.connection = new Sequelize(configuration);
-    models.map((model) => model.init(this.connection));
+    this.database = new Sequelize(configuration);
+    models.map((model) => model.init(this.database));
   }
 
   applyCommonMiddlewares() {
@@ -35,4 +36,6 @@ class App {
   }
 }
 
-export default new App().server;
+const { server, database } = new App();
+
+export { server, database };

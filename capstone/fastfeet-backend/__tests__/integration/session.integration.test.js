@@ -1,0 +1,34 @@
+import request from 'supertest';
+import { server } from '@root/app';
+import factories from '../factories';
+
+describe('Route -> Session', () => {
+  it('should return status "bad request" when mandatory fields are not filled', async () => {
+    const { status, body } = await request(server).post('/token');
+
+    expect(status).toBe(400);
+    expect(body).toHaveProperty('error');
+  });
+
+  it('should return status "OK" and autentication token when the credentials was validated with success', async () => {
+    const { email, password } = await factories.create('User');
+
+    const { status, body } = await request(server)
+      .post('/token')
+      .send({ email, password });
+
+    expect(status).toBe(200);
+    expect(body).toHaveProperty('token');
+  });
+
+  it('should return status "not authorized" and an error when the credentials was validated with fail', async () => {
+    const { email, password } = await factories.create('User');
+
+    const { status, body } = await request(server)
+      .post('/token')
+      .send({ email, password: `${password}wrong` });
+
+    expect(status).toBe(401);
+    expect(body).toHaveProperty('error');
+  });
+});

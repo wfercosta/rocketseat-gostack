@@ -1,12 +1,9 @@
+import './bootstrap';
 import 'module-alias/register';
-import 'express-async-errors';
-import dotenv from 'dotenv';
 
-import app from './app';
-
-dotenv.config();
+import { server } from './app';
 
 const port = process.env.PORT;
 
 // eslint-disable-next-line no-console
-app.listen(port, () => console.log(`\n⚡️Server started at port: ${port}`));
+server.listen(port, () => console.log(`\n⚡️Server started at port: ${port}`));
