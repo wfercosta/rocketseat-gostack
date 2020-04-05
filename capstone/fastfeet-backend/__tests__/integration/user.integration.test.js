@@ -63,7 +63,7 @@ describe('Route -> User', () => {
       expect(body.id).toBe(id);
     });
 
-    it('should return status "OK" and the user when it is successfully deleted', async () => {
+    it('should return status "not found" and an error when the user was not found', async () => {
       const { id } = await factories.create('User');
 
       await request(server)
@@ -147,9 +147,26 @@ describe('Route -> User', () => {
       expect(status).toBe(200);
       expect(body).toHaveProperty('id');
     });
+
+    it('should return status "not found" and an error when the user was not found', async () => {
+      const user = await factories.attrs('User');
+
+      const update = {
+        name: user.name,
+        email: user.email,
+      };
+
+      const { status, body } = await request(server)
+        .put('/users/9999')
+        .send(update)
+        .set('Authorization', `bearer ${session.token}`);
+
+      expect(status).toBe(404);
+      expect(body).toHaveProperty('error');
+    });
   });
 
-  describe('Create', () => {
+  describe('Store', () => {
     it('should return status "not authorized" when requested without a token', async () => {
       const { status } = await request(server).post('/users');
       expect(status).toBe(401);
@@ -182,7 +199,7 @@ describe('Route -> User', () => {
       expect(body).toHaveProperty('error');
     });
 
-    it('should return status "bad request" and and error when the mandatory fields is not filled', async () => {
+    it('should return status "bad request" and an error when the mandatory fields are not filled', async () => {
       const { status, body } = await request(server)
         .post('/users')
         .set('Authorization', `bearer ${session.token}`);
