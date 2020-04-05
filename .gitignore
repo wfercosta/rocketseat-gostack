@@ -6,3 +6,7 @@ yarn-error.log
 .env
 
 !**/tmp/uploads/README.md
+
+database.sqlite
+
+**/coverage/**
