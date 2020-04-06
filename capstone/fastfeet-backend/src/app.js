@@ -2,12 +2,12 @@ import express from 'express';
 import 'express-async-errors';
 import configuration from '@configurations/database';
 import Sequelize from 'sequelize';
-import { User, Recipient } from '@models';
+import { User, Recipient, File, Deliveryman } from '@models';
 import routes from '@routes';
 
 import { errorHandling } from '@middlewares';
 
-const models = [User, Recipient];
+const models = [User, Recipient, Deliveryman, File];
 
 class App {
   constructor() {
@@ -20,7 +20,9 @@ class App {
 
   applyDatabaseConfiguration() {
     this.database = new Sequelize(configuration);
-    models.map((model) => model.init(this.database));
+    models
+      .map((model) => model.init(this.database))
+      .map((model) => model.associate && model.associate(this.database.models));
   }
 
   applyCommonMiddlewares() {
