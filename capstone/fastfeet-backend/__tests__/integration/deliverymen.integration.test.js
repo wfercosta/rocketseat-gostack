@@ -19,6 +19,48 @@ describe('Route -> Deliverymen', () => {
     };
   });
 
+  describe('Update', () => {
+    it('should return status "OK" and the deliveryman when it is successfully updated', async () => {
+      const { id } = await factories.create('Deliveryman');
+      const deliveryman = await factories.attrs('Deliveryman');
+
+      const { status, body } = await request(server)
+        .put(`/deliverymen/${id}`)
+        .send(deliveryman)
+        .set('Authorization', `bearer ${session.token}`);
+
+      expect(status).toBe(200);
+      expect(body).toHaveProperty('name', deliveryman.name);
+    });
+
+    it('should return status "not found" and an error when the deliveryman was not found', async () => {
+      const deliveryman = await factories.attrs('Deliveryman');
+
+      const { status, body } = await request(server)
+        .put('/deliverymen/9999')
+        .send(deliveryman)
+        .set('Authorization', `bearer ${session.token}`);
+
+      expect(status).toBe(404);
+      expect(body).toHaveProperty('error');
+    });
+
+    it('should return status "bad request" and an error when the mandatory fields are not filled ', async () => {
+      const { status, body } = await request(server)
+        .put('/deliverymen/1')
+        .set('Authorization', `bearer ${session.token}`);
+
+      expect(status).toBe(400);
+      expect(body).toHaveProperty('error');
+    });
+
+    it('should return status "not authorized" when requested without a token', async () => {
+      const { status, body } = await request(server).put('/deliverymen/1');
+      expect(status).toBe(401);
+      expect(body).toHaveProperty('error');
+    });
+  });
+
   describe('Store', () => {
     it('should return status "bad request" and an error when the email is duplicated', async () => {
       const existent = await factories.create('Deliveryman');

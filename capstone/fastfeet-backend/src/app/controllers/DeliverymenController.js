@@ -10,6 +10,20 @@ class DeliverymenController {
     };
   }
 
+  async update(req, res) {
+    const { id } = req.params;
+
+    let deliveryman = await Deliveryman.findByPk(id);
+
+    if (!deliveryman) {
+      throw new NotFoundError('Deliveryman not found');
+    }
+
+    deliveryman = await deliveryman.update(req.data);
+
+    return res.json(deliveryman);
+  }
+
   async store(req, res) {
     const { email } = req.data;
 

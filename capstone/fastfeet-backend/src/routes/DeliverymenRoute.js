@@ -15,11 +15,11 @@ routes.post(
   DeliverymenController.store
 );
 
-// routes.put(
-//   '/:id',
-//   validate({ shape: DeliverymenController.SCHEMA_STORE, path: 'body' }),
-//   DeliverymenController.update
-// );
+routes.put(
+  '/:id',
+  validate({ shape: DeliverymenController.SCHEMA_STORE, path: 'body' }),
+  DeliverymenController.update
+);
 
 // routes.delete('/:id', DeliverymenController.delete);
 
