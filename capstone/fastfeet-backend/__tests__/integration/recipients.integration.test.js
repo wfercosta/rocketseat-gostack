@@ -2,6 +2,7 @@ import request from 'supertest';
 import { server } from '@root/app';
 import { auth } from '@configurations/application';
 import jwt from 'jsonwebtoken';
+import { Recipient } from '@models';
 import factories from '../factories';
 
 describe('Route -> Recipients ', () => {
@@ -155,8 +156,11 @@ describe('Route -> Recipients ', () => {
         .delete(`/recipients/${id}`)
         .set('Authorization', `bearer ${session.token}`);
 
+      const recipient = await Recipient.findByPk(id);
+
       expect(status).toBe(200);
       expect(body).toHaveProperty('id');
+      expect(recipient).toBeNull();
     });
 
     it('should return status "not found" and an error when the recipient was not found', async () => {

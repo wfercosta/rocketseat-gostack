@@ -96,7 +96,7 @@ class UserController {
       throw new NotFoundError('User not found');
     }
 
-    user.destroy();
+    await user.destroy();
 
     return res.json(user);
   }

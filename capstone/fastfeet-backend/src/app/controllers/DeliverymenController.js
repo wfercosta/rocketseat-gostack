@@ -10,6 +10,20 @@ class DeliverymenController {
     };
   }
 
+  async delete(req, res) {
+    const { id } = req.params;
+
+    const deliveryman = await Deliveryman.findByPk(id);
+
+    if (!deliveryman) {
+      throw new NotFoundError('Deliveryman not found');
+    }
+
+    await deliveryman.destroy();
+
+    return res.json(deliveryman);
+  }
+
   async update(req, res) {
     const { id } = req.params;
 

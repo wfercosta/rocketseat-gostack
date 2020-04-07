@@ -61,7 +61,7 @@ class RecipientController {
       throw new NotFoundError('Recipient Not Found');
     }
 
-    recipient.destroy();
+    await recipient.destroy();
 
     return res.json(recipient);
   }

@@ -2,6 +2,7 @@ import request from 'supertest';
 import { server } from '@root/app';
 import { auth } from '@configurations/application';
 import jwt from 'jsonwebtoken';
+import { User } from '@models/';
 import factories from '../factories';
 
 describe('Route -> User', () => {
@@ -59,8 +60,11 @@ describe('Route -> User', () => {
         .delete(`/users/${id}`)
         .set('Authorization', `bearer ${session.token}`);
 
+      const user = await User.findByPk(id);
+
       expect(status).toBe(200);
       expect(body.id).toBe(id);
+      expect(user).toBeNull();
     });
 
     it('should return status "not found" and an error when the user was not found', async () => {

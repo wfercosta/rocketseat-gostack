@@ -2,6 +2,7 @@ import request from 'supertest';
 import { server } from '@root/app';
 import { auth } from '@configurations/application';
 import jwt from 'jsonwebtoken';
+import { Deliveryman } from '@models';
 import factories from '../factories';
 
 describe('Route -> Deliverymen', () => {
@@ -17,6 +18,37 @@ describe('Route -> Deliverymen', () => {
         expiresIn: auth.expiration,
       }),
     };
+  });
+
+  describe('Delete', () => {
+    it('should return status "OK" and the deliveryman when it is successfully deleted', async () => {
+      const { id } = await factories.create('Deliveryman');
+
+      const { status, body } = await request(server)
+        .delete(`/deliverymen/${id}`)
+        .set('Authorization', `bearer ${session.token}`);
+
+      const deliveryman = await Deliveryman.findByPk(id);
+
+      expect(status).toBe(200);
+      expect(body).toHaveProperty('id', id);
+      expect(deliveryman).toBeNull();
+    });
+
+    it('should return status "not found" and an error when the deliveryman was not found', async () => {
+      const { status, body } = await request(server)
+        .delete('/deliverymen/9999')
+        .set('Authorization', `bearer ${session.token}`);
+
+      expect(status).toBe(404);
+      expect(body).toHaveProperty('error');
+    });
+
+    it('should return status "not authorized" when requested without a token', async () => {
+      const { status, body } = await request(server).delete('/deliverymen/1');
+      expect(status).toBe(401);
+      expect(body).toHaveProperty('error');
+    });
   });
 
   describe('Update', () => {
