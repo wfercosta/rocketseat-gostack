@@ -10,3 +10,5 @@ yarn-error.log
 database.sqlite
 
 **/coverage/**
+
+**/.DS_Store
