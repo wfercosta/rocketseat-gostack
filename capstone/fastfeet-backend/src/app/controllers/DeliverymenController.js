@@ -1,7 +1,28 @@
+import * as Yup from 'yup';
 import { Deliveryman } from '@models';
-import { NotFoundError } from '@infrastructure/errors';
+import { NotFoundError, ValidationError } from '@infrastructure/errors';
 
 class DeliverymenController {
+  constructor() {
+    this.SCHEMA_STORE = {
+      name: Yup.string().required(),
+      email: Yup.string().required(),
+    };
+  }
+
+  async store(req, res) {
+    const { email } = req.data;
+
+    const exists = await Deliveryman.findOne({ where: { email } });
+
+    if (exists) {
+      throw new ValidationError('Deliveryman already exists');
+    }
+
+    const deliveryman = await Deliveryman.create(req.data);
+    return res.status(201).json(deliveryman);
+  }
+
   async index(req, res) {
     const deliverymen = await Deliveryman.findAll();
     return res.json(deliverymen);

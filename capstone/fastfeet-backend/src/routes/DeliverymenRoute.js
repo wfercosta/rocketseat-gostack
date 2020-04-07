@@ -9,11 +9,11 @@ routes.get('/', DeliverymenController.index);
 
 routes.get('/:id', DeliverymenController.show);
 
-// routes.post(
-//   '/',
-//   validate({ shape: DeliverymenController.SCHEMA_STORE, path: 'body' }),
-//   DeliverymenController.store
-// );
+routes.post(
+  '/',
+  validate({ shape: DeliverymenController.SCHEMA_STORE, path: 'body' }),
+  DeliverymenController.store
+);
 
 // routes.put(
 //   '/:id',
