@@ -5,6 +5,8 @@ import Sequelize from 'sequelize';
 import { User, Recipient, File, Deliveryman } from '@models';
 import routes from '@routes';
 
+import { resolve } from 'path';
+
 import { errorHandling } from '@middlewares';
 
 const models = [User, Recipient, Deliveryman, File];
@@ -27,6 +29,10 @@ class App {
 
   applyCommonMiddlewares() {
     this.server.use(express.json());
+    this.server.use(
+      '/files',
+      express.static(resolve(__dirname, '..', 'tmp', 'uploads'))
+    );
   }
 
   applyRoutes() {
