@@ -7,7 +7,7 @@ const routes = new Router();
 
 routes.get('/', DeliverymenController.index);
 
-// routes.get('/:id', DeliverymenController.show);
+routes.get('/:id', DeliverymenController.show);
 
 // routes.post(
 //   '/',
