@@ -1,6 +1,6 @@
 import { factory } from 'factory-girl';
 import faker from 'faker';
-import { User, Recipient } from '@models';
+import { User, Recipient, Deliveryman } from '@models';
 
 faker.locale = 'pt_BR';
 
@@ -18,6 +18,11 @@ factory.define('Recipient', Recipient, {
   state: faker.address.state,
   city: faker.address.city,
   zipcode: faker.address.zipCode,
+});
+
+factory.define('Deliveryman', Deliveryman, {
+  name: faker.name.findName,
+  email: faker.internet.email,
 });
 
 export default factory;
