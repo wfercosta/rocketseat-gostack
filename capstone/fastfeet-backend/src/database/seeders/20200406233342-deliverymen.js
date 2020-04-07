@@ -1,6 +1,9 @@
 module.exports = {
   up: async (queryInterface) => {
-    const files = await queryInterface.sequelize.query('SELECT id FROM files');
+    const files = await queryInterface.sequelize.query(
+      'SELECT id FROM files WHERE name ' +
+        "IN('ea1b5bb9a818ecc22686a00f78706acb.jpeg', 'db543fead484523da94a75cbfc4f1349.jpeg')"
+    );
 
     return queryInterface.bulkInsert(
       'deliverymen',
