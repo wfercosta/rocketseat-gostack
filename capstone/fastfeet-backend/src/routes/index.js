@@ -14,8 +14,8 @@ const routes = new Router();
 routes.use('/token', TokenRoute);
 routes.use('/users', autenticated, UserRoute);
 routes.use('/recipients', autenticated, RecipientRoute);
+routes.use('/deliverymen', DeliverymenDeliveriesRoute);
 routes.use('/deliverymen', autenticated, DeliverymenRoute);
-routes.use('/deliverymen/:man/deliveries', DeliverymenDeliveriesRoute);
 routes.use('/deliveries', autenticated, DeliveryRoute);
 
 export default routes;

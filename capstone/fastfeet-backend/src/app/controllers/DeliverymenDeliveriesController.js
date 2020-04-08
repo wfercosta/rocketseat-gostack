@@ -1,3 +1,6 @@
+import { Deliveryman, Delivery } from '@models';
+import { NotFoundError } from '@infrastructure/errors';
+
 class DeliverymenDeliveriesController {
   constructor() {
     this.SCHEMA_PATCH = {};
@@ -5,7 +8,21 @@ class DeliverymenDeliveriesController {
 
   async index(req, res) {
     const { man } = req.params;
-    return res.json();
+    const deliveryman = await Deliveryman.findByPk(man);
+
+    if (!deliveryman) {
+      throw new NotFoundError('Deliveryman not found exception');
+    }
+
+    const deliveries = await Delivery.findAll({
+      where: {
+        deliveryman_id: man,
+        end_date: null,
+        cancelled_at: null,
+      },
+    });
+
+    return res.json(deliveries);
   }
 
   async show(req, res) {

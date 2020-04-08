@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 import { Deliveryman } from '@models';
 import factories from '../factories';
 
-describe('Route -> Deliverymen', () => {
+describe('Route -> Deliverymen -> Deliveries', () => {
   let session = {};
 
   beforeEach(async () => {
@@ -24,5 +24,25 @@ describe('Route -> Deliverymen', () => {
 
   describe('Show', () => {});
 
-  describe('Index', () => {});
+  describe('Index', () => {
+    it('should return status "OK" and a list of all deliveries that has not status of "deliveried" or "cancelled"', async () => {
+      const { deliveryman_id: man } = await factories.create('Delivery');
+
+      const { status, body } = await request(server).get(
+        `/deliverymen/${man}/deliveries`
+      );
+
+      expect(status).toBe(200);
+      expect(body.length).toBeGreaterThanOrEqual(1);
+    });
+
+    it('should return status "not found" and an error when the deliveryman was not found', async () => {
+      const { status, body } = await request(server).get(
+        '/deliverymen/999/deliveries'
+      );
+
+      expect(status).toBe(404);
+      expect(body).toHaveProperty('error');
+    });
+  });
 });

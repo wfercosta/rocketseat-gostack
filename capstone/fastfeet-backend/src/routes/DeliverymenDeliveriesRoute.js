@@ -5,12 +5,12 @@ import { DeliverymenDeliveriesController } from '@controllers';
 
 const routes = new Router();
 
-routes.get('/', DeliverymenDeliveriesController.index);
+routes.get('/:man/deliveries', DeliverymenDeliveriesController.index);
 
-routes.get('/:dlv', DeliverymenDeliveriesController.show);
+routes.get('/:man/deliveries/:dlv', DeliverymenDeliveriesController.show);
 
 routes.patch(
-  '/:dlv',
+  '/:man/deliveries/:dlv',
   validate({
     shape: DeliverymenDeliveriesController.SCHEMA_PATCH,
     path: 'body',

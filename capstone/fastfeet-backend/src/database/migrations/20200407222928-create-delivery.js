@@ -32,7 +32,7 @@ module.exports = {
         type: Sequelize.STRING(60),
         allowNull: false,
       },
-      canceled_at: {
+      cancelled_at: {
         type: Sequelize.DATE,
         allowNull: true,
       },
