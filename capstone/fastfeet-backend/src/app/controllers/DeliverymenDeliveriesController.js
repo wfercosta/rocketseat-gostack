@@ -27,7 +27,22 @@ class DeliverymenDeliveriesController {
 
   async show(req, res) {
     const { man, dlv } = req.params;
-    return res.json();
+
+    const deliveryman = await Deliveryman.findByPk(man);
+
+    if (!deliveryman) {
+      throw new NotFoundError('Deliveryman not found exception');
+    }
+
+    const delivery = await Delivery.findOne({
+      where: { id: dlv, deliveryman_id: man },
+    });
+
+    if (!delivery) {
+      throw new NotFoundError('Delivery not found for deliveryman');
+    }
+
+    return res.json(delivery);
   }
 
   async patch(req, res) {

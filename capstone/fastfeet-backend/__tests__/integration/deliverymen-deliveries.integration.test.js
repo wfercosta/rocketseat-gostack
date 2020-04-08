@@ -22,7 +22,27 @@ describe('Route -> Deliverymen -> Deliveries', () => {
 
   describe('Patch', () => {});
 
-  describe('Show', () => {});
+  describe('Show', () => {
+    it('should return status "OK" and the deliveryman and delivery when it was successfully found', async () => {
+      const { deliveryman_id: man, id } = await factories.create('Delivery');
+
+      const { status, body } = await request(server).get(
+        `/deliverymen/${man}/deliveries/${id}`
+      );
+
+      expect(status).toBe(200);
+      expect(body).toHaveProperty('id', id);
+    });
+
+    it('should return status "not found" and an error when the deliveryman or delivery was not found', async () => {
+      const { status, body } = await request(server).get(
+        '/deliverymen/999/deliveries/9999'
+      );
+
+      expect(status).toBe(404);
+      expect(body).toHaveProperty('error');
+    });
+  });
 
   describe('Index', () => {
     it('should return status "OK" and a list of all deliveries that has not status of "deliveried" or "cancelled"', async () => {
