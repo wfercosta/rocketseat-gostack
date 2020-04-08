@@ -1,6 +1,6 @@
 import { factory } from 'factory-girl';
 import faker from 'faker';
-import { User, Recipient, Deliveryman } from '@models';
+import { User, Recipient, Deliveryman, Delivery } from '@models';
 
 faker.locale = 'pt_BR';
 
@@ -24,5 +24,24 @@ factory.define('Deliveryman', Deliveryman, {
   name: faker.name.findName,
   email: faker.internet.email,
 });
+
+factory.define(
+  'Delivery',
+  Delivery,
+  {
+    product: faker.commerce.productName,
+  },
+  {
+    afterBuild: async (model) => {
+      const { id: recipient } = await factory.create('Recipient');
+      const { id: deliveryman } = await factory.create('Deliveryman');
+
+      model.recipient_id = recipient;
+      model.deliveryman_id = deliveryman;
+
+      return model;
+    },
+  }
+);
 
 export default factory;
