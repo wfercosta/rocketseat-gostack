@@ -1,8 +1,6 @@
 import request from 'supertest';
 import { formatISO, setHours } from 'date-fns';
 import { server } from '@root/app';
-import { auth } from '@configurations/application';
-import jwt from 'jsonwebtoken';
 import { Delivery } from '@models';
 import factories from '../factories';
 
