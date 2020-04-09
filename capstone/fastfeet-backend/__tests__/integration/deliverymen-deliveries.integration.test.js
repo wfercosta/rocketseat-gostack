@@ -7,20 +7,6 @@ import { Delivery } from '@models';
 import factories from '../factories';
 
 describe('Route -> Deliverymen -> Deliveries', () => {
-  let session = {};
-
-  beforeEach(async () => {
-    const { id, name, email } = await factories.create('User');
-    const model = { id, name, email };
-
-    session = {
-      ...model,
-      token: jwt.sign(model, auth.secret, {
-        expiresIn: auth.expiration,
-      }),
-    };
-  });
-
   describe('Patch', () => {
     it('should return status "OK" and the delivery when it was successfully updated', async () => {
       const { deliveryman_id: man, id } = await factories.create('Delivery');
