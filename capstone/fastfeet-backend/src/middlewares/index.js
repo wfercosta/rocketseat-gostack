@@ -1,11 +1,12 @@
 import * as Yup from 'yup';
 import jwt from 'jsonwebtoken';
 import { promisify } from 'util';
+import Youch from 'youch';
 
 import { ValidationError, NotAuthorizedError } from '@infrastructure/errors';
 import { auth } from '@configurations/application';
 
-const errorHandling = (err, req, res, next) => {
+const errorHandling = async (err, req, res, next) => {
   if (res.headersSent) {
     return next(err);
   }
@@ -14,7 +15,10 @@ const errorHandling = (err, req, res, next) => {
     return res.status(err.status).json({ error: err.message });
   }
 
-  return res.status(500).json({ error: 'Internal Server Error.' });
+  console.log(err);
+  const errors = await new Youch(err, req).toJSON();
+
+  return res.status(500).json({ error: errors });
 };
 
 const validate = ({ shape, path = 'query' }) => async (req, res, next) => {
