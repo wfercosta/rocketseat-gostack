@@ -6,6 +6,7 @@ import DeliveryController from './DeliveryController';
 import DeliverymenDeliveriesController from './DeliverymenDeliveriesController';
 import DeliveryProblemsController from './DeliveryProblemsController';
 import DeliveryCancellationController from './DeliveryCancellationController';
+import FileController from './FileController';
 
 export {
   TokenController,
@@ -16,4 +17,5 @@ export {
   DeliverymenDeliveriesController,
   DeliveryProblemsController,
   DeliveryCancellationController,
+  FileController,
 };

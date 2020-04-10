@@ -23,8 +23,6 @@ describe('Route -> Deliveries -> Cancellation', () => {
         .send({ cancelled_at: formatISO(new Date()), reason_id: reason })
         .set('Authorization', `bearer ${session.token}`);
 
-      console.log('body: ', body);
-
       expect(status).toBe(200);
       expect(body).toHaveProperty('reason');
       expect(body.reason).not.toBeNull();

@@ -8,8 +8,14 @@ import DeliveryRoute from './DeliveryRoute';
 import DeliverymenDeliveriesRoute from './DeliverymenDeliveriesRoute';
 import DeliveryProblemsRoute from './DeliveryProblemsRoute';
 import DeliveryCancellationRoute from './DeliveryCancellationRoute';
+import FileRoute from './FileRoute';
 
 const routes = new Router();
+
+/**
+ * File Upload
+ */
+routes.use('/files', FileRoute);
 
 /**
  * Sessions/ token routes
