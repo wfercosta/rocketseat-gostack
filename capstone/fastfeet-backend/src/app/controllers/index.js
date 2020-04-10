@@ -4,6 +4,7 @@ import RecipientController from './RecipientController';
 import DeliverymenController from './DeliverymenController';
 import DeliveryController from './DeliveryController';
 import DeliverymenDeliveriesController from './DeliverymenDeliveriesController';
+import DeliveryProblemsController from './DeliveryProblemsController';
 
 export {
   TokenController,
@@ -12,4 +13,5 @@ export {
   DeliverymenController,
   DeliveryController,
   DeliverymenDeliveriesController,
+  DeliveryProblemsController,
 };

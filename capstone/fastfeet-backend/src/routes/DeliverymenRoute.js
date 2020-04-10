@@ -1,9 +1,11 @@
 import { Router } from 'express';
 
-import { validate } from '@middlewares';
+import { validate, autenticated } from '@middlewares';
 import { DeliverymenController } from '@controllers';
 
 const routes = new Router();
+
+routes.use(autenticated);
 
 routes.get('/', DeliverymenController.index);
 
