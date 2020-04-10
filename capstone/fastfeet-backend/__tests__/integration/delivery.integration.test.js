@@ -1,23 +1,14 @@
 import request from 'supertest';
 import { server } from '@root/App';
-import { auth } from '@configurations/application';
-import jwt from 'jsonwebtoken';
 import { Delivery } from '@models';
 import factories from '../factories';
+import { createSession } from '../helpers';
 
 describe('Route -> Delivery', () => {
   let session = {};
 
   beforeEach(async () => {
-    const { id, name, email } = await factories.create('User');
-    const model = { id, name, email };
-
-    session = {
-      ...model,
-      token: jwt.sign(model, auth.secret, {
-        expiresIn: auth.expiration,
-      }),
-    };
+    session = await createSession();
   });
 
   describe('Delete', () => {
