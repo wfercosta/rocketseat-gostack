@@ -1,4 +1,4 @@
-import { database } from '@root/app';
+import { database } from '@root/App';
 
 const truncate = () => {
   Object.keys(database.models).map((key) => {

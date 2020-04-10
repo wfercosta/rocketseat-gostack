@@ -2,14 +2,14 @@ import express from 'express';
 import 'express-async-errors';
 import configuration from '@configurations/database';
 import Sequelize from 'sequelize';
-import { User, Recipient, File, Deliveryman, Delivery } from '@models';
+import { User, Recipient, File, Deliveryman, Delivery, Problem } from '@models';
 import routes from '@routes';
 
 import { resolve } from 'path';
 
 import { errorHandling } from '@middlewares';
 
-const models = [User, Recipient, Deliveryman, File, Delivery];
+const models = [User, Recipient, Deliveryman, File, Delivery, Problem];
 
 class App {
   constructor() {

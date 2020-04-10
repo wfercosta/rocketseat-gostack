@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { server } from '@root/app';
+import { server } from '@root/App';
 import factories from '../factories';
 
 describe('Route -> Session', () => {

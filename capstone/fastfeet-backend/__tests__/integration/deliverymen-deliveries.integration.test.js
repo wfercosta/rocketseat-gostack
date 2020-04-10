@@ -1,6 +1,6 @@
 import request from 'supertest';
 import { formatISO, setHours } from 'date-fns';
-import { server } from '@root/app';
+import { server } from '@root/App';
 import { Delivery } from '@models';
 import factories from '../factories';
 

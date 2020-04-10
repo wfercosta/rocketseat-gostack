@@ -22,13 +22,20 @@ class Delivery extends Model {
       foreignKey: 'recipient_id',
       as: 'recipient',
     });
+
     this.belongsTo(models.Deliveryman, {
       foreignKey: 'deliveryman_id',
       as: 'deliveryman',
     });
-    this.belongsTo(models.File, {
+
+    this.hasOne(models.File, {
       foreignKey: 'signature_id',
       as: 'signature',
+    });
+
+    this.hasMany(models.Problem, {
+      foreignKey: 'delivery_id',
+      as: 'problems',
     });
   }
 }

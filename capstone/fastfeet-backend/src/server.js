@@ -1,7 +1,7 @@
 import './bootstrap';
 import 'module-alias/register';
 
-import { server } from './app';
+import { server } from './App';
 
 const port = process.env.PORT;
 

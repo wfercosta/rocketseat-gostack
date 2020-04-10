@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { server } from '@root/app';
+import { server } from '@root/App';
 import { auth } from '@configurations/application';
 import jwt from 'jsonwebtoken';
 import { User } from '@models/';
