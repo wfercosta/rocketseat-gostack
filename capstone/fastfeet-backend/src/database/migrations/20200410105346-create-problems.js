@@ -7,7 +7,7 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
-      descritpion: {
+      description: {
         type: Sequelize.STRING,
         allowNull: false,
       },
