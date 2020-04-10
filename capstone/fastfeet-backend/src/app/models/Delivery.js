@@ -1,4 +1,5 @@
 import Sequelize, { Model } from 'sequelize';
+import Problem from './Problem';
 
 class Delivery extends Model {
   static init(sequelize) {
@@ -14,7 +15,14 @@ class Delivery extends Model {
         tableName: 'deliveries',
       }
     );
+
     return this;
+  }
+
+  addProblem(problem) {
+    this.problem = this.problem || [];
+    this.problem.push(problem);
+    this.include = [Problem];
   }
 
   static associate(models) {

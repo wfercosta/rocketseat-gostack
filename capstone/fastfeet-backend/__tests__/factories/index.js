@@ -1,6 +1,6 @@
 import { factory } from 'factory-girl';
 import faker from 'faker';
-import { User, Recipient, Deliveryman, Delivery } from '@models';
+import { User, Recipient, Deliveryman, Delivery, Problem } from '@models';
 
 faker.locale = 'pt_BR';
 
@@ -43,5 +43,9 @@ factory.define(
     },
   }
 );
+
+factory.define('Problem', Problem, {
+  description: faker.lorem.words(6),
+});
 
 export default factory;
