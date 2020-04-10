@@ -4,7 +4,7 @@ import { resolve } from 'path';
 
 describe('Route -> Files', () => {
   describe('Store', () => {
-    it('should return status "OK" when the file is successfully created', async () => {
+    it('should return status "OK" when the file is successfully created and downloaded', async () => {
       const {
         body: { path },
       } = await request(server)
