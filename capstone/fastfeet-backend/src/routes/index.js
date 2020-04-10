@@ -1,7 +1,5 @@
 import { Router } from 'express';
 
-import { autenticated } from '@middlewares';
-
 import RecipientRoute from './RecipientRoute';
 import UserRoute from './UserRoute';
 import TokenRoute from './TokenRoute';
@@ -9,6 +7,7 @@ import DeliverymenRoute from './DeliverymenRoute';
 import DeliveryRoute from './DeliveryRoute';
 import DeliverymenDeliveriesRoute from './DeliverymenDeliveriesRoute';
 import DeliveryProblemsRoute from './DeliveryProblemsRoute';
+import DeliveryCancellationRoute from './DeliveryCancellationRoute';
 
 const routes = new Router();
 
@@ -38,5 +37,6 @@ routes.use('/deliverymen', DeliverymenRoute);
  */
 routes.use('/deliveries', DeliveryRoute);
 routes.use('/deliveries', DeliveryProblemsRoute);
+routes.use('/deliveries', DeliveryCancellationRoute);
 
 export default routes;

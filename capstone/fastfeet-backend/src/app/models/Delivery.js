@@ -19,12 +19,6 @@ class Delivery extends Model {
     return this;
   }
 
-  addProblem(problem) {
-    this.problem = this.problem || [];
-    this.problem.push(problem);
-    this.include = [Problem];
-  }
-
   static associate(models) {
     this.belongsTo(models.Recipient, {
       foreignKey: 'recipient_id',
@@ -44,6 +38,11 @@ class Delivery extends Model {
     this.hasMany(models.Problem, {
       foreignKey: 'delivery_id',
       as: 'problems',
+    });
+
+    this.belongsTo(models.Problem, {
+      foreignKey: 'reason_id',
+      as: 'reason',
     });
   }
 }
