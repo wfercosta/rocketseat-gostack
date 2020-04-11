@@ -1,0 +1,15 @@
+
+header {
+    overflow: hidden;
+    background-color: #4A90E2;
+    padding: 20px 10px;
+}
+
+header .header-right {
+    float: right;
+}
+
+
+header .header-right nav a {
+    color: #FFF;
+}

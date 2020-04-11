@@ -21,9 +21,10 @@ class PostList extends Component {
             author: {
               name: "Cersei Lannister",
               avatar:
-                "https://upload.wikimedia.org/wikipedia/en/thumb/2/22/Cersei_Lannister_in_Black_Dress_in_Season_5.jpg/220px-Cersei_Lannister_in_Black_Dress_in_Season_5.jpg",
+                "https://lh3.googleusercontent.com/proxy/5mWwr9QKhz4LMy9uoEBRzIqxluVAVwOEsQ_VzkhseDaxpisKFqPghGj_7p2GcJhwy-1elJNHpWF5DrOU4ZzAXifNN-J2AdZ-EKOUE_b83rOXHCZUyMfkYf1Q7v49I27jyLxO_-XXjFiA13hfIot9ztaizVc1R396OkAqRoZps9wW1N8",
             },
-            content: "I thought if I could make something good so pure... maybe I'm not a moster",
+            content:
+              "I thought if I could make something good so pure... maybe I'm not a moster",
           },
         ],
       },
@@ -31,8 +32,7 @@ class PostList extends Component {
         id: 2,
         author: {
           name: "Jon Snow",
-          avatar:
-            "https://upload.wikimedia.org/wikipedia/en/thumb/3/30/Jon_Snow_Season_8.png/220px-Jon_Snow_Season_8.png",
+          avatar: "https://avatarfiles.alphacoders.com/117/117500.jpg",
         },
         date: "04 Jun 2019",
         content: "It's cold up here for a southern girl",
@@ -63,9 +63,11 @@ class PostList extends Component {
   render() {
     return (
       <>
-        {this.state.posts.map((post) => (
-          <Post key={post.id} data={post} />
-        ))}
+        <div className="posts">
+          {this.state.posts.map((post) => (
+            <Post key={post.id} data={post} />
+          ))}
+        </div>
       </>
     );
   }

@@ -1,0 +1,38 @@
+
+article {
+    border-radius: 5px;
+    width: 700px;
+    margin: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.profile {
+    display: flex;
+    flex-direction: row;
+}
+.avatar {
+    width: 50px;
+    border-radius: 50%;
+    padding: 10px;
+}
+
+.user {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.user .name {
+    color: #4A4A4A;
+    font-weight: bold;
+}
+
+.user .created-at {
+    color: #9A9A9A;
+    font-size: 8pt;
+}
+
+.content {
+    color: #3E3E3E;
+    padding: 10px;
+    line-height: 22px;
+}

@@ -1,0 +1,18 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+html, body {
+    font-family: Helvetica;
+    font-size: 10pt;
+    color: #000;
+    background-color: #F2F2F2;
+}
+
+a, a:hover, a:visited {
+    font-size: 10px;
+    color: #000;
+    text-decoration: none;
+}
