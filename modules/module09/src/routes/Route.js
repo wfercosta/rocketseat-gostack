@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import { useSelector } from 'react-redux';
 import AuthLayout from '~/pages/_laytouts/auth';
 import DefaultLayout from '~/pages/_laytouts/default';
 
@@ -10,9 +11,7 @@ export default function Wrapper({
   isPrivate = false,
   ...rest
 }) {
-  const signed = false;
-
-  console.tron.log(signed, isPrivate);
+  const signed = useSelector((state) => state.auth.signed);
 
   if (!signed && isPrivate) {
     return <Redirect to="/" />;
