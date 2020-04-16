@@ -59,7 +59,7 @@ function AppRoutes() {
       />
       <Tab.Screen
         name="Profile"
-        component={Dashboard}
+        component={Profile}
         options={{
           tabBarLabel: 'Meu perfil',
           tabBarIcon: ({ color }) => (
