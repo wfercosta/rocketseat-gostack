@@ -59,12 +59,34 @@ function NewRoutes() {
       <Stack.Screen
         name="SelectDateTime"
         component={SelectDateTime}
-        options={{ title: 'My app' }}
+        options={({ navigation }) => ({
+          title: 'Selecione o horário',
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.goBack();
+              }}
+            >
+              <Icon name="chevron-left" size={20} color="#fff" />
+            </TouchableOpacity>
+          ),
+        })}
       />
       <Stack.Screen
         name="Confirm"
         component={Confirm}
-        options={{ title: 'My app' }}
+        options={({ navigation }) => ({
+          title: 'Confirmar agendamento',
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.goBack();
+              }}
+            >
+              <Icon name="chevron-left" size={20} color="#fff" />
+            </TouchableOpacity>
+          ),
+        })}
       />
     </Stack.Navigator>
   );

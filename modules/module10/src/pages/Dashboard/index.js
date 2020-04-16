@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
+
+import { useFocusEffect } from '@react-navigation/native';
 
 import Background from '../../components/Background';
 import Appointment from '../../components/Appointment';
@@ -25,13 +27,16 @@ export default function Dashboard() {
     );
   }
 
-  useEffect(() => {
-    async function loadAppointments() {
-      const response = await api.get('appointments');
-      setAppointments(response.data);
-    }
-    loadAppointments();
-  }, []);
+  async function loadAppointments() {
+    const response = await api.get('appointments');
+    setAppointments(response.data);
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      loadAppointments();
+    }, [])
+  );
 
   return (
     <Background>
