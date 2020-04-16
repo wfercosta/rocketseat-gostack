@@ -1,4 +1,5 @@
 import React from 'react';
+import { TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -9,13 +10,16 @@ import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
-import Schedule from './pages/Schedule';
+import SelectProvider from './pages/New/SelectProvider';
+import SelectDateTime from './pages/New/SelectDateTime';
+import Confirm from './pages/New/Confirm';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const screenOptions = {
   headerShown: false,
+  headerTransparent: true,
   headerBackTitleVisible: false,
   headerBackTitle: false,
   headerTitleAlign: 'center',
@@ -24,6 +28,47 @@ const screenOptions = {
     backgroundColor: '#7159c1',
   },
 };
+
+function NewRoutes() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        ...screenOptions,
+        headerShown: true,
+        headerLeftContainerStyle: {
+          marginLeft: 20,
+        },
+      }}
+    >
+      <Stack.Screen
+        name="SelectProvider"
+        component={SelectProvider}
+        options={({ navigation }) => ({
+          title: 'Selecione o prestardor',
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('Dashboard');
+              }}
+            >
+              <Icon name="chevron-left" size={20} color="#fff" />
+            </TouchableOpacity>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="SelectDateTime"
+        component={SelectDateTime}
+        options={{ title: 'My app' }}
+      />
+      <Stack.Screen
+        name="Confirm"
+        component={Confirm}
+        options={{ title: 'My app' }}
+      />
+    </Stack.Navigator>
+  );
+}
 
 function AppRoutes() {
   return (
@@ -38,7 +83,7 @@ function AppRoutes() {
       }}
     >
       <Tab.Screen
-        name="Dasboard"
+        name="Dashboard"
         component={Dashboard}
         options={{
           tabBarLabel: 'Agendamentos',
@@ -49,11 +94,12 @@ function AppRoutes() {
       />
       <Tab.Screen
         name="Schedule"
-        component={Schedule}
+        component={NewRoutes}
         options={{
+          tabBarVisible: false,
           tabBarLabel: 'Agendar',
           tabBarIcon: ({ color }) => (
-            <Icon name="add" size={20} color={color} />
+            <Icon name="add-circle-outline" size={20} color={color} />
           ),
         }}
       />
@@ -84,13 +130,7 @@ export default function Routes({ signedIn }) {
   console.tron.log('Routes -> Signed: ', signedIn);
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={screenOptions}>
-        {signedIn ? (
-          <Stack.Screen name="App" component={AppRoutes} />
-        ) : (
-          <Stack.Screen name="Sign" component={SignInRoutes} />
-        )}
-      </Stack.Navigator>
+      {signedIn ? <AppRoutes /> : <SignInRoutes />}
     </NavigationContainer>
   );
 }
