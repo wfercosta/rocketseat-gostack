@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
-import { Delivery } from '@models';
-import { NotFoundError, ValidationError } from '@infrastructure/errors';
+import { Delivery, Recipient, Deliveryman, File } from '@models';
+import { NotFoundError } from '@infrastructure/errors';
 
 class DeliveryController {
   constructor() {
@@ -51,7 +51,24 @@ class DeliveryController {
   }
 
   async index(req, res) {
-    const deliveries = await Delivery.findAll();
+    const deliveries = await Delivery.findAll({
+      include: [
+        {
+          model: Recipient,
+          as: 'recipient',
+        },
+        {
+          model: Deliveryman,
+          as: 'deliveryman',
+          include: [
+            {
+              model: File,
+              as: 'avatar',
+            },
+          ],
+        },
+      ],
+    });
     return res.json(deliveries);
   }
 

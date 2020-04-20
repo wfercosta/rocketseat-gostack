@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import 'express-async-errors';
 import configuration from '@configurations/database';
 import Sequelize from 'sequelize';
@@ -28,6 +29,7 @@ class App {
   }
 
   applyCommonMiddlewares() {
+    this.server.use(cors());
     this.server.use(express.json());
     this.server.use(
       '/files',

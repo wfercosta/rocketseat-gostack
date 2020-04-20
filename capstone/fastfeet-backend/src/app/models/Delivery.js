@@ -30,7 +30,7 @@ class Delivery extends Model {
       as: 'deliveryman',
     });
 
-    this.hasOne(models.File, {
+    this.belongsTo(models.File, {
       foreignKey: 'signature_id',
       as: 'signature',
     });
