@@ -1,0 +1,38 @@
+version: '3.1'
+services:
+
+  gobarber-db:
+    container_name: gobarber-db
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: gobarber
+    ports:
+      - 5432:5432
+    volumes:
+      - database-data:/var/lib/postgresql/data/
+
+  gobarber-nosql-mongo:
+    container_name: gobarber-nosql-mongo
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - nosql-data:/data/db
+
+  gobarber-mail:
+    container_name: gobarber-mail
+    image: mailhog/mailhog:latest
+    ports:
+      - 1025:1025
+      - 8025:8025
+
+  gobarber-nosql-redis:
+    container_name: gobarber-nosql-redis
+    image: redis:alpine
+    ports:
+      - 6379:6379
+
+volumes:
+  database-data:
+  nosql-data:
